@@ -7,8 +7,8 @@ export default defineConfig({
         main: './lib/index.ts',
       },
       formats: ['es', 'cjs'],
-      name: 'library-template',
-      fileName: (format) => {
+      name: 'fetcher-ts',
+      fileName: format => {
         return `${format}/index.js`;
       },
     },
@@ -16,8 +16,11 @@ export default defineConfig({
   test: {
     globals: true,
     include: ['lib/**/*.test.ts', 'lib/**/*.spec.ts'],
+    exclude: ['lib/index.ts'],
     coverage: {
       provider: 'v8',
+      include: ['lib/**/*.test.ts', 'lib/**/*.spec.ts'],
+      exclude: ['lib/index.ts'],
     },
   },
 });

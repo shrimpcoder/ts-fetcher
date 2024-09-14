@@ -1,11 +1,11 @@
 {
-  "name": "library-template",
+  "name": "fetcher-ts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shrimpcoder/library-template"
+    "url": "https://github.com/shrimpcoder/fetcher-ts"
   },
   "files": [
     "dist"
@@ -37,5 +37,8 @@
     "typescript-eslint": "^7.16.1",
     "vite": "^5.2.10",
     "vitest": "^2.1.1"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
   }
 }
