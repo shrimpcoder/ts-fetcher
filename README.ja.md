@@ -14,7 +14,7 @@
 ## インストール
 
 ```bash
-npm install ts-fetcher
+npm install @shrimpcoder/ts-fetcher
 ```
 
 ## Zod との統合
