@@ -7,7 +7,7 @@ export default defineConfig({
         main: './lib/index.ts',
       },
       formats: ['es', 'cjs'],
-      name: 'ts-fetcher',
+      name: '@shrimpcoder/ts-fetcher',
       fileName: format => {
         return `${format}/index.js`;
       },

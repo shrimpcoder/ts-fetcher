@@ -30,8 +30,8 @@ npm install zod
 ```
 
 ```typescript
-import { Fetcher } from 'ts-fetcher';
-import { URLBuilder } from 'ts-fetcher';
+import { Fetcher } from '@shrimpcoder/ts-fetcher';
+import { URLBuilder } from '@shrimpcoder/ts-fetcher';
 import { z } from 'zod';
 
 const urlBuilder = new URLBuilder({ baseUrl: 'https://api.example.com' });
