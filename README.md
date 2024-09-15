@@ -12,7 +12,7 @@
 ## Installation
 
 ```bash
-npm install fetcher-ts
+npm install ts-fetcher
 ```
 
 ## Usage
@@ -20,8 +20,8 @@ npm install fetcher-ts
 ### GET Request
 
 ```typescript
-import { Fetcher } from 'fetcher-ts';
-import { URLBuilder } from 'fetcher-ts';
+import { Fetcher } from 'ts-fetcher';
+import { URLBuilder } from 'ts-fetcher';
 import { z } from 'zod';
 
 const urlBuilder = new URLBuilder({ baseUrl: 'https://api.example.com' });
@@ -34,8 +34,8 @@ console.log(data);
 ### POST JSON Request
 
 ```typescript
-import { Fetcher } from 'fetcher-ts';
-import { URLBuilder } from 'fetcher-ts';
+import { Fetcher } from 'ts-fetcher';
+import { URLBuilder } from 'ts-fetcher';
 import { z } from 'zod';
 
 const urlBuilder = new URLBuilder({ baseUrl: 'https://api.example.com' });

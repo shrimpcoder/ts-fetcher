@@ -1,11 +1,11 @@
 {
-  "name": "fetcher-ts",
+  "name": "ts-fetcher",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shrimpcoder/fetcher-ts"
+    "url": "https://github.com/shrimpcoder/ts-fetcher"
   },
   "files": [
     "dist"
