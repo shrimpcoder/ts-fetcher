@@ -33,8 +33,7 @@ export type Query = z.infer<typeof querySchema>;
 
 /**
  * QueryBuilder class
- *
- * This class is used to build query strings.
+ * @description This class is used to build query strings.
  *
  * @example
  * ```ts

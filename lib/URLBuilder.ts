@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Query, QueryBuilder } from './QueryBuilder';
+import { QueryBuilder } from './QueryBuilder';
 
 /**
  * Zod schema for base URL
@@ -45,8 +45,7 @@ export type URLBuilderParams = {
 
 /**
  * URLBuilder class
- *
- * This class is used to build URLs with query parameters.
+ * @description This class is used to build URLs with query parameters.
  *
  * @example
  * ```ts
@@ -145,22 +144,22 @@ export class URLBuilder {
   }
 
   /**
-   * Getter for the query parameters
+   * Getter for the query builder
    *
-   * @returns {Query} The query parameters
+   * @returns {QueryBuilder} The query builder
    *
    * @example
    * ```ts
    * const urlBuilder = new URLBuilder({
    *   baseUrl: 'https://example.com',
    *   path: '/path/to/resource',
-   *   query: { page: 1, limit: 10, search: 'hello' },
+   *   queryBuilder: new QueryBuilder({ page: 1, limit: 10, search: 'hello' }),
    * });
-   * console.log(urlBuilder.query); // { page: 1, limit: 10, search: 'hello' }
+   * console.log(urlBuilder.queryBuilder); // QueryBuilder { query: { page: 1, limit: 10, search: 'hello' } }
    * ```
    */
-  get query(): Query {
-    return this.#queryBuilder.query;
+  get queryBuilder(): QueryBuilder {
+    return this.#queryBuilder;
   }
 
   /**

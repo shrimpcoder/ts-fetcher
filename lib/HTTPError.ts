@@ -1,5 +1,11 @@
 /**
- * Error class for HTTP errors
+ * HTTPError class
+ * @description This class is used to represent an HTTP error.
+ *
+ * @property {number} status - The HTTP status code
+ * @property {string} statusText - The HTTP status text
+ * @property {string} name - The name of the error(HTTPError)
+ * @property {string} message - The error message(status + statusText)
  *
  * @example
  * ```ts
@@ -14,7 +20,7 @@ export class HTTPError extends Error {
    * @param status - The HTTP status code
    * @param statusText - The HTTP status text
    */
-  constructor(public status: number, statusText: string) {
-    super(statusText);
+  constructor(public status: number, public statusText: string) {
+    super(`${status} ${statusText}`);
   }
 }

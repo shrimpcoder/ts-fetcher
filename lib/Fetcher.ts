@@ -21,7 +21,7 @@ export type GetParams<T> = {
 };
 
 /**
- * Type for POST parameters
+ * Type for POST text parameters
  * @template T - The type of the response
  */
 export type PostTextParams<T> = {
@@ -81,20 +81,25 @@ export type PostArrayBufferParams<T> = {
 };
 
 /**
- * Class for fetching data from a URL
+ * Fetcher class for fetching data from a URL
+ * @description This class provides methods for fetching data from a URL with different content types. <br/>
+ * It uses the URLBuilder class to build the URL and the zod schema to parse the response. <br/>
+ * It also uses the fetch API to make the request.
  *
  * @example
  * ```ts
- * const fetcher = new Fetcher();
- * const data = await fetcher.get('https://api.example.com', { schema: z.object({ name: z.string() }) });
+ * const data = await Fetcher.get({
+ *   urlBuilder: new URLBuilder({ baseUrl: 'https://api.example.com' }),
+ *   schema: z.object({ name: z.string() }),
+ * });
  * ```
  */
 export class Fetcher {
   /**
-   * Fetches data from a URL
-   * @param {URLBuilder} urlBuilder - The URL builder
-   * @param {z.ZodSchema<T>} schema - The schema to parse the response
-   * @param {RequestInit} options - The request options
+   * GET request
+   *
+   * @description Fetches data from a URL with a GET request.
+   * @param {GetParams<T>} params - The parameters for the GET request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
@@ -106,12 +111,10 @@ export class Fetcher {
   }
 
   /**
-   * Posts text data to a URL
-   * @param {URLBuilder} urlBuilder - The URL builder
-   * @param {string} body - The body of the request
-   * @param {z.ZodSchema<T>} schema - The schema to parse the response
-   * @param {TextContentType} contentType - The content type of the request
-   * @param {RequestInit} options - The request options
+   * POST text data to a URL
+   *
+   * @description Posts text data to a URL with a POST request.
+   * @param {PostTextParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
@@ -135,11 +138,9 @@ export class Fetcher {
 
   /**
    * Posts JSON data to a URL
-   * @param {URLBuilder} urlBuilder - The URL builder
-   * @param {string} body - The body of the request
-   * @param {z.ZodSchema<T>} schema - The schema to parse the response
-   * @param {JsonContentType} contentType - The content type of the request
-   * @param {RequestInit} options - The request options
+   *
+   * @description Posts JSON data to a URL with a POST request.
+   * @param {PostJsonParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
@@ -163,11 +164,9 @@ export class Fetcher {
 
   /**
    * Posts form data to a URL
-   * @param {URLBuilder} urlBuilder - The URL builder
-   * @param {FormData} body - The body of the request
-   * @param {z.ZodSchema<T>} schema - The schema to parse the response
-   * @param {FormDataContentType} contentType - The content type of the request
-   * @param {RequestInit} options - The request options
+   *
+   * @description Posts form data to a URL with a POST request.
+   * @param {PostFormDataParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
@@ -191,11 +190,9 @@ export class Fetcher {
 
   /**
    * Posts blob data to a URL
-   * @param {URLBuilder} urlBuilder - The URL builder
-   * @param {Blob} body - The body of the request
-   * @param {z.ZodSchema<T>} schema - The schema to parse the response
-   * @param {BlobContentType} contentType - The content type of the request
-   * @param {RequestInit} options - The request options
+   *
+   * @description Posts blob data to a URL with a POST request.
+   * @param {PostBlobParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
@@ -219,11 +216,9 @@ export class Fetcher {
 
   /**
    * Posts array buffer data to a URL
-   * @param {URLBuilder} urlBuilder - The URL builder
-   * @param {ArrayBuffer} body - The body of the request
-   * @param {z.ZodSchema<T>} schema - The schema to parse the response
-   * @param {ArrayBufferContentType} contentType - The content type of the request
-   * @param {RequestInit} options - The request options
+   *
+   * @description Posts array buffer data to a URL with a POST request.
+   * @param {PostArrayBufferParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
@@ -247,6 +242,8 @@ export class Fetcher {
 
   /**
    * Handles the response
+   *
+   * @description Checks if the response is ok and parses the response based on the content type.
    * @param {Response} response - The response to handle
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
@@ -260,6 +257,8 @@ export class Fetcher {
 
   /**
    * Parses the response based on the content type
+   *
+   * @description Parses the response based on the content type.
    * @param {Response} response - The response to parse
    * @returns The parsed response
    */

@@ -5,6 +5,8 @@ describe('HTTPError', () => {
     const error = new HTTPError(404, 'Not Found');
     expect(error).toBeInstanceOf(HTTPError);
     expect(error.status).toBe(404);
-    expect(error.message).toBe('Not Found');
+    expect(error.statusText).toBe('Not Found');
+    expect(error.name).toBe('HTTPError');
+    expect(error.message).toBe('404 Not Found');
   });
 });

@@ -13,7 +13,7 @@ describe('URLBuilder', () => {
       expect(urlBuilder).toBeInstanceOf(URLBuilder);
       expect(urlBuilder.baseUrl).toBe('https://example.com');
       expect(urlBuilder.path).toBe('/path/to/resource');
-      expect(urlBuilder.query).toEqual({ page: 1, limit: 10, search: 'hello' });
+      expect(urlBuilder.queryBuilder.query).toEqual({ page: 1, limit: 10, search: 'hello' });
     });
     it('should be able to create a URLBuilder with only baseUrl', () => {
       const urlBuilder = new URLBuilder({
@@ -23,7 +23,7 @@ describe('URLBuilder', () => {
       expect(urlBuilder).toBeInstanceOf(URLBuilder);
       expect(urlBuilder.baseUrl).toBe('https://example.com');
       expect(urlBuilder.path).toBe('/');
-      expect(urlBuilder.query).toEqual({});
+      expect(urlBuilder.queryBuilder.query).toEqual({});
     });
     it('should be able to create a URLBuilder with only baseUrl and path', () => {
       const urlBuilder = new URLBuilder({
@@ -34,7 +34,7 @@ describe('URLBuilder', () => {
       expect(urlBuilder).toBeInstanceOf(URLBuilder);
       expect(urlBuilder.baseUrl).toBe('https://example.com');
       expect(urlBuilder.path).toBe('/path/to/resource');
-      expect(urlBuilder.query).toEqual({});
+      expect(urlBuilder.queryBuilder.query).toEqual({});
     });
     it('should be able to create a URLBuilder with only baseUrl and query', () => {
       const urlBuilder = new URLBuilder({
@@ -45,7 +45,7 @@ describe('URLBuilder', () => {
       expect(urlBuilder).toBeInstanceOf(URLBuilder);
       expect(urlBuilder.baseUrl).toBe('https://example.com');
       expect(urlBuilder.path).toBe('/');
-      expect(urlBuilder.query).toEqual({ page: 1, limit: 10, search: 'hello' });
+      expect(urlBuilder.queryBuilder.query).toEqual({ page: 1, limit: 10, search: 'hello' });
     });
     it('should throw an error if baseUrl is not a string', () => {
       expect(() => new URLBuilder({ baseUrl: 123 as any })).toThrow();
@@ -82,7 +82,7 @@ describe('URLBuilder', () => {
         baseUrl: 'https://example.com',
         queryBuilder: new QueryBuilder({ page: 1, limit: 10, search: 'hello' }),
       });
-      expect(urlBuilder.query).toEqual({ page: 1, limit: 10, search: 'hello' });
+      expect(urlBuilder.queryBuilder.query).toEqual({ page: 1, limit: 10, search: 'hello' });
     });
   });
   describe('build', () => {
