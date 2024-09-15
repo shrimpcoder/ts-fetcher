@@ -1,0 +1,8 @@
+{
+  "entryPoints": ["lib/index.ts"],
+  "out": "docs",
+  "includeVersion": true,
+  "exclude": ["**/node_modules/**"],
+  "excludePrivate": true,
+  "excludeProtected": true
+}

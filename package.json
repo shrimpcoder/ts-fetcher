@@ -26,7 +26,8 @@
     "prepare": "npm run build",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "docs": "typedoc"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
@@ -36,7 +37,8 @@
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.16.1",
     "vite": "^5.2.10",
-    "vitest": "^2.1.1"
+    "vitest": "^2.1.1",
+    "typedoc": "^0.26.5"
   },
   "dependencies": {
     "zod": "^3.23.8"
