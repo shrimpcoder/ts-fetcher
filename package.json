@@ -2,6 +2,14 @@
   "name": "ts-fetcher",
   "private": true,
   "version": "0.0.0",
+  "description": "A TypeScript-based fetcher library",
+  "keywords": [
+    "typescript",
+    "fetch",
+    "library"
+  ],
+  "author": "shrimpcoder <shrimpcoder97@gmail.com> (https://github.com/shrimpcoder)",
+  "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
