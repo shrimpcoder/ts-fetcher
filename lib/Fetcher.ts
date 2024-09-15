@@ -11,6 +11,76 @@ import { HTTPError } from './HTTPError';
 import { URLBuilder } from './URLBuilder';
 
 /**
+ * Type for GET parameters
+ * @template T - The type of the response
+ */
+export type GetParams<T> = {
+  urlBuilder: URLBuilder;
+  schema?: z.ZodSchema<T>;
+  options?: RequestInit;
+};
+
+/**
+ * Type for POST parameters
+ * @template T - The type of the response
+ */
+export type PostTextParams<T> = {
+  urlBuilder: URLBuilder;
+  body: string;
+  schema?: z.ZodSchema<T>;
+  contentType: TextContentType;
+  options?: RequestInit;
+};
+
+/**
+ * Type for POST JSON parameters
+ * @template T - The type of the response
+ */
+export type PostJsonParams<T> = {
+  urlBuilder: URLBuilder;
+  body: Record<string, unknown>;
+  schema?: z.ZodSchema<T>;
+  contentType: JsonContentType;
+  options?: RequestInit;
+};
+
+/**
+ * Type for POST form data parameters
+ * @template T - The type of the response
+ */
+export type PostFormDataParams<T> = {
+  urlBuilder: URLBuilder;
+  body: FormData;
+  schema?: z.ZodSchema<T>;
+  contentType: FormDataContentType;
+  options?: RequestInit;
+};
+
+/**
+ * Type for POST blob parameters
+ * @template T - The type of the response
+ */
+export type PostBlobParams<T> = {
+  urlBuilder: URLBuilder;
+  body: Blob;
+  schema?: z.ZodSchema<T>;
+  contentType: BlobContentType;
+  options?: RequestInit;
+};
+
+/**
+ * Type for POST array buffer parameters
+ * @template T - The type of the response
+ */
+export type PostArrayBufferParams<T> = {
+  urlBuilder: URLBuilder;
+  body: ArrayBuffer;
+  schema?: z.ZodSchema<T>;
+  contentType: ArrayBufferContentType;
+  options?: RequestInit;
+};
+
+/**
  * Class for fetching data from a URL
  *
  * @example
@@ -29,13 +99,10 @@ export class Fetcher {
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
    */
-  static async get<T>(
-    urlBuilder: URLBuilder,
-    schema: z.ZodSchema<T>,
-    options: RequestInit = {}
-  ): Promise<T> {
+  static async get<T = unknown>({ urlBuilder, schema, options = {} }: GetParams<T>): Promise<T> {
     const response = await fetch(urlBuilder.build(), { ...options, method: 'GET' });
-    return schema.parse(await this.handleResponse(response));
+    const data = await this.handleResponse(response);
+    return schema ? schema.parse(data) : (data as T);
   }
 
   /**
@@ -49,20 +116,21 @@ export class Fetcher {
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
    */
-  static async postText<T>(
-    urlBuilder: URLBuilder,
-    body: string,
-    schema: z.ZodSchema<T>,
-    contentType: TextContentType,
-    options: RequestInit = {}
-  ): Promise<T> {
+  static async postText<T = unknown>({
+    urlBuilder,
+    body,
+    schema,
+    contentType,
+    options = {},
+  }: PostTextParams<T>): Promise<T> {
     const response = await fetch(urlBuilder.build(), {
       ...options,
       method: 'POST',
       headers: { ...options.headers, 'Content-Type': contentType },
       body,
     });
-    return schema.parse(await this.handleResponse(response));
+    const data = await this.handleResponse(response);
+    return schema ? schema.parse(data) : (data as T);
   }
 
   /**
@@ -76,20 +144,21 @@ export class Fetcher {
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
    */
-  static async postJson<T>(
-    urlBuilder: URLBuilder,
-    body: Record<string, unknown>,
-    schema: z.ZodSchema<T>,
-    contentType: JsonContentType,
-    options: RequestInit = {}
-  ): Promise<T> {
+  static async postJson<T = unknown>({
+    urlBuilder,
+    body,
+    schema,
+    contentType,
+    options = {},
+  }: PostJsonParams<T>): Promise<T> {
     const response = await fetch(urlBuilder.build(), {
       ...options,
       method: 'POST',
       headers: { ...options.headers, 'Content-Type': contentType },
       body: JSON.stringify(body),
     });
-    return schema.parse(await this.handleResponse(response));
+    const data = await this.handleResponse(response);
+    return schema ? schema.parse(data) : (data as T);
   }
 
   /**
@@ -103,20 +172,21 @@ export class Fetcher {
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
    */
-  static async postFormData<T>(
-    urlBuilder: URLBuilder,
-    body: FormData,
-    schema: z.ZodSchema<T>,
-    contentType: FormDataContentType,
-    options: RequestInit = {}
-  ): Promise<T> {
+  static async postFormData<T = unknown>({
+    urlBuilder,
+    body,
+    schema,
+    contentType,
+    options = {},
+  }: PostFormDataParams<T>): Promise<T> {
     const response = await fetch(urlBuilder.build(), {
       ...options,
       method: 'POST',
       headers: { ...options.headers, 'Content-Type': contentType },
       body: body,
     });
-    return schema.parse(await this.handleResponse(response));
+    const data = await this.handleResponse(response);
+    return schema ? schema.parse(data) : (data as T);
   }
 
   /**
@@ -130,20 +200,21 @@ export class Fetcher {
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
    */
-  static async postBlob<T>(
-    urlBuilder: URLBuilder,
-    body: Blob,
-    schema: z.ZodSchema<T>,
-    contentType: BlobContentType,
-    options: RequestInit = {}
-  ): Promise<T> {
+  static async postBlob<T = unknown>({
+    urlBuilder,
+    body,
+    schema,
+    contentType,
+    options = {},
+  }: PostBlobParams<T>): Promise<T> {
     const response = await fetch(urlBuilder.build(), {
       ...options,
       method: 'POST',
       body: body,
       headers: { ...options.headers, 'Content-Type': contentType },
     });
-    return schema.parse(await this.handleResponse(response));
+    const data = await this.handleResponse(response);
+    return schema ? schema.parse(data) : (data as T);
   }
 
   /**
@@ -157,20 +228,21 @@ export class Fetcher {
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
    */
-  static async postArrayBuffer<T>(
-    urlBuilder: URLBuilder,
-    body: ArrayBuffer,
-    schema: z.ZodSchema<T>,
-    contentType: ArrayBufferContentType,
-    options: RequestInit = {}
-  ): Promise<T> {
+  static async postArrayBuffer<T = unknown>({
+    urlBuilder,
+    body,
+    schema,
+    contentType,
+    options = {},
+  }: PostArrayBufferParams<T>): Promise<T> {
     const response = await fetch(urlBuilder.build(), {
       ...options,
       method: 'POST',
       body: body,
       headers: { ...options.headers, 'Content-Type': contentType },
     });
-    return schema.parse(await this.handleResponse(response));
+    const data = await this.handleResponse(response);
+    return schema ? schema.parse(data) : (data as T);
   }
 
   /**

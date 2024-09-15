@@ -22,7 +22,7 @@ describe('Fetcher', () => {
   describe('get', () => {
     it('should fetch data with GET method', async () => {
       const urlBuilder = new URLBuilder({ baseUrl: mockUrl });
-      const data = await Fetcher.get(urlBuilder, mockSchema);
+      const data = await Fetcher.get({ urlBuilder, schema: mockSchema });
 
       expect(data).toEqual(mockResponse);
       expect(fetch).toHaveBeenCalledWith(mockUrl, {
@@ -37,7 +37,7 @@ describe('Fetcher', () => {
       const body = 'example text';
       const contentType = 'text/plain';
 
-      const data = await Fetcher.postText(urlBuilder, body, mockSchema, contentType);
+      const data = await Fetcher.postText({ urlBuilder, body, schema: mockSchema, contentType });
 
       expect(data).toEqual(mockResponse);
       expect(fetch).toHaveBeenCalledWith(mockUrl, {
@@ -54,7 +54,7 @@ describe('Fetcher', () => {
       const body = { key: 'value' };
       const contentType = 'application/json';
 
-      const data = await Fetcher.postJson(urlBuilder, body, mockSchema, contentType);
+      const data = await Fetcher.postJson({ urlBuilder, body, schema: mockSchema, contentType });
 
       expect(data).toEqual(mockResponse);
       expect(fetch).toHaveBeenCalledWith(mockUrl, {
@@ -71,7 +71,7 @@ describe('Fetcher', () => {
       const body = new Blob(['example blob'], { type: 'text/plain' });
       const contentType = 'image/jpeg';
 
-      const data = await Fetcher.postBlob(urlBuilder, body, mockSchema, contentType);
+      const data = await Fetcher.postBlob({ urlBuilder, body, schema: mockSchema, contentType });
 
       expect(data).toEqual(mockResponse);
       expect(fetch).toHaveBeenCalledWith(mockUrl, {
@@ -88,7 +88,12 @@ describe('Fetcher', () => {
       const body = new ArrayBuffer(8);
       const contentType = 'application/octet-stream';
 
-      const data = await Fetcher.postArrayBuffer(urlBuilder, body, mockSchema, contentType);
+      const data = await Fetcher.postArrayBuffer({
+        urlBuilder,
+        body,
+        schema: mockSchema,
+        contentType,
+      });
 
       expect(data).toEqual(mockResponse);
       expect(fetch).toHaveBeenCalledWith(mockUrl, {
@@ -107,7 +112,12 @@ describe('Fetcher', () => {
       body.append('key', 'value');
       const contentType = 'multipart/form-data';
 
-      const data = await Fetcher.postFormData(urlBuilder, body, mockSchema, contentType);
+      const data = await Fetcher.postFormData({
+        urlBuilder,
+        body,
+        schema: mockSchema,
+        contentType,
+      });
 
       expect(data).toEqual(mockResponse);
       expect(fetch).toHaveBeenCalledWith(mockUrl, {
@@ -123,7 +133,7 @@ describe('Fetcher', () => {
       const body = new Blob(['example blob'], { type: 'text/plain' });
       const contentType = 'image/jpeg';
 
-      const data = await Fetcher.postBlob(urlBuilder, body, mockSchema, contentType);
+      const data = await Fetcher.postBlob({ urlBuilder, body, schema: mockSchema, contentType });
 
       expect(data).toEqual(mockResponse);
       expect(fetch).toHaveBeenCalledWith(mockUrl, {
@@ -139,7 +149,12 @@ describe('Fetcher', () => {
       const body = new ArrayBuffer(8);
       const contentType = 'application/octet-stream';
 
-      const data = await Fetcher.postArrayBuffer(urlBuilder, body, mockSchema, contentType);
+      const data = await Fetcher.postArrayBuffer({
+        urlBuilder,
+        body,
+        schema: mockSchema,
+        contentType,
+      });
 
       expect(data).toEqual(mockResponse);
       expect(fetch).toHaveBeenCalledWith(mockUrl, {
@@ -161,7 +176,7 @@ describe('Fetcher', () => {
       // @ts-ignore
       global.fetch = vi.fn(() => Promise.resolve(response)) as unknown as typeof fetch;
 
-      await expect(Fetcher.get(urlBuilder, mockSchema)).rejects.toThrow(
+      await expect(Fetcher.get({ urlBuilder, schema: mockSchema })).rejects.toThrow(
         new HTTPError(404, 'Not Found')
       );
     });
@@ -178,7 +193,7 @@ describe('Fetcher', () => {
       // @ts-ignore
       global.fetch = vi.fn(() => Promise.resolve(response)) as unknown as typeof fetch;
 
-      const data = await Fetcher.get(urlBuilder, mockSchema);
+      const data = await Fetcher.get({ urlBuilder, schema: mockSchema });
 
       expect(data).toEqual(mockResponse);
     });
@@ -193,7 +208,7 @@ describe('Fetcher', () => {
       // @ts-ignore
       global.fetch = vi.fn(() => Promise.resolve(response)) as unknown as typeof fetch;
 
-      const data = await Fetcher.get(urlBuilder, textSchema);
+      const data = await Fetcher.get({ urlBuilder, schema: textSchema });
 
       expect(data).toEqual('example text');
     });
@@ -208,7 +223,7 @@ describe('Fetcher', () => {
       // @ts-ignore
       global.fetch = vi.fn(() => Promise.resolve(response)) as unknown as typeof fetch;
 
-      const data = await Fetcher.get(urlBuilder, blobSchema);
+      const data = await Fetcher.get({ urlBuilder, schema: blobSchema });
 
       expect(data).toEqual(new Blob(['example blob'], { type: 'text/plain' }));
     });
@@ -223,7 +238,7 @@ describe('Fetcher', () => {
       // @ts-ignore
       global.fetch = vi.fn(() => Promise.resolve(response)) as unknown as typeof fetch;
 
-      const data = await Fetcher.get(urlBuilder, arrayBufferSchema);
+      const data = await Fetcher.get({ urlBuilder, schema: arrayBufferSchema });
 
       expect(data).toEqual(new ArrayBuffer(8));
     });
@@ -238,7 +253,7 @@ describe('Fetcher', () => {
       // @ts-ignore
       global.fetch = vi.fn(() => Promise.resolve(response)) as unknown as typeof fetch;
 
-      const data = await Fetcher.get(urlBuilder, formDataSchema);
+      const data = await Fetcher.get({ urlBuilder, schema: formDataSchema });
 
       expect(data).toEqual(new FormData());
     });
@@ -252,7 +267,7 @@ describe('Fetcher', () => {
       // @ts-ignore
       global.fetch = vi.fn(() => Promise.resolve(response)) as unknown as typeof fetch;
 
-      const data = await Fetcher.get(urlBuilder, undefinedSchema);
+      const data = await Fetcher.get({ urlBuilder, schema: undefinedSchema });
 
       expect(data).toEqual(undefined);
     });
