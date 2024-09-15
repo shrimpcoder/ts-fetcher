@@ -1,5 +1,5 @@
 {
-  "name": "ts-fetcher",
+  "name": "@shrimpcoder/ts-fetcher",
   "private": true,
   "version": "0.1.0",
   "description": "A TypeScript-based fetcher library",
