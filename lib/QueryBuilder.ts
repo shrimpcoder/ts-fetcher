@@ -15,7 +15,7 @@ import { z } from 'zod';
  * console.log(query); // { page: 1, limit: 10, search: 'hello' }
  * ```
  */
-const querySchema = z.record(z.string(), z.unknown());
+export const querySchema = z.record(z.string(), z.unknown());
 
 /**
  * Type for query parameters
@@ -33,7 +33,7 @@ export type Query = z.infer<typeof querySchema>;
 
 /**
  * QueryBuilder class
- * @description This class is used to build query strings.
+ * This class is used to build query strings.
  *
  * @example
  * ```ts

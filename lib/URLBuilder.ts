@@ -45,7 +45,7 @@ export type URLBuilderParams = {
 
 /**
  * URLBuilder class
- * @description This class is used to build URLs with query parameters.
+ * This class is used to build URLs with query parameters.
  *
  * @example
  * ```ts

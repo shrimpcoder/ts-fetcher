@@ -82,8 +82,9 @@ export type PostArrayBufferParams<T> = {
 
 /**
  * Fetcher class for fetching data from a URL
- * @description This class provides methods for fetching data from a URL with different content types. <br/>
- * It uses the URLBuilder class to build the URL and the zod schema to parse the response. <br/>
+ *
+ * This class provides methods for fetching data from a URL with different content types.
+ * It uses the URLBuilder class to build the URL and the Zod schema to parse the response.
  * It also uses the fetch API to make the request.
  *
  * @example
@@ -98,11 +99,19 @@ export class Fetcher {
   /**
    * GET request
    *
-   * @description Fetches data from a URL with a GET request.
+   * Fetches data from a URL with a GET request.
    * @param {GetParams<T>} params - The parameters for the GET request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
+   *
+   * @example
+   * ```ts
+   * const data = await Fetcher.get({
+   *   urlBuilder: new URLBuilder({ baseUrl: 'https://api.example.com' }),
+   *   schema: z.object({ name: z.string() }),
+   * });
+   * ```
    */
   static async get<T = unknown>({ urlBuilder, schema, options = {} }: GetParams<T>): Promise<T> {
     const response = await fetch(urlBuilder.build(), { ...options, method: 'GET' });
@@ -113,11 +122,21 @@ export class Fetcher {
   /**
    * POST text data to a URL
    *
-   * @description Posts text data to a URL with a POST request.
+   * Posts text data to a URL with a POST request.
    * @param {PostTextParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
+   *
+   * @example
+   * ```ts
+   * const data = await Fetcher.postText({
+   *   urlBuilder: new URLBuilder({ baseUrl: 'https://api.example.com' }),
+   *   body: 'Hello, world!',
+   *   schema: z.object({ name: z.string() }),
+   *   contentType: 'text/plain',
+   * });
+   * ```
    */
   static async postText<T = unknown>({
     urlBuilder,
@@ -139,11 +158,21 @@ export class Fetcher {
   /**
    * Posts JSON data to a URL
    *
-   * @description Posts JSON data to a URL with a POST request.
+   * Posts JSON data to a URL with a POST request.
    * @param {PostJsonParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
+   *
+   * @example
+   * ```ts
+   * const data = await Fetcher.postJson({
+   *   urlBuilder: new URLBuilder({ baseUrl: 'https://api.example.com' }),
+   *   body: { name: 'example' },
+   *   schema: z.object({ name: z.string() }),
+   *   contentType: 'application/json',
+   * });
+   * ```
    */
   static async postJson<T = unknown>({
     urlBuilder,
@@ -165,11 +194,20 @@ export class Fetcher {
   /**
    * Posts form data to a URL
    *
-   * @description Posts form data to a URL with a POST request.
+   * Posts form data to a URL with a POST request.
    * @param {PostFormDataParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
+   *
+   * @example
+   * ```ts
+   * const data = await Fetcher.postFormData({
+   *   urlBuilder: new URLBuilder({ baseUrl: 'https://api.example.com' }),
+   *   body: new FormData(),
+   *   schema: z.object({ name: z.string() }),
+   *   contentType: 'application/x-www-form-urlencoded',
+   * });
    */
   static async postFormData<T = unknown>({
     urlBuilder,
@@ -191,11 +229,20 @@ export class Fetcher {
   /**
    * Posts blob data to a URL
    *
-   * @description Posts blob data to a URL with a POST request.
+   * Posts blob data to a URL with a POST request.
    * @param {PostBlobParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
+   *
+   * @example
+   * ```ts
+   * const data = await Fetcher.postBlob({
+   *   urlBuilder: new URLBuilder({ baseUrl: 'https://api.example.com' }),
+   *   body: new Blob(),
+   *   schema: z.object({ name: z.string() }),
+   *   contentType: 'image/png',
+   * });
    */
   static async postBlob<T = unknown>({
     urlBuilder,
@@ -217,11 +264,20 @@ export class Fetcher {
   /**
    * Posts array buffer data to a URL
    *
-   * @description Posts array buffer data to a URL with a POST request.
+   * Posts array buffer data to a URL with a POST request.
    * @param {PostArrayBufferParams<T>} params - The parameters for the POST request
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
    * @throws ZodError if the response is not valid
+   *
+   * @example
+   * ```ts
+   * const data = await Fetcher.postArrayBuffer({
+   *   urlBuilder: new URLBuilder({ baseUrl: 'https://api.example.com' }),
+   *   body: new ArrayBuffer(),
+   *   schema: z.object({ name: z.string() }),
+   *   contentType: 'application/octet-stream',
+   * });
    */
   static async postArrayBuffer<T = unknown>({
     urlBuilder,
@@ -243,7 +299,7 @@ export class Fetcher {
   /**
    * Handles the response
    *
-   * @description Checks if the response is ok and parses the response based on the content type.
+   * Checks if the response is ok and parses the response based on the content type.
    * @param {Response} response - The response to handle
    * @returns The parsed response
    * @throws HTTPError if the response is not ok
@@ -258,7 +314,7 @@ export class Fetcher {
   /**
    * Parses the response based on the content type
    *
-   * @description Parses the response based on the content type.
+   * Parses the response based on the content type.
    * @param {Response} response - The response to parse
    * @returns The parsed response
    */

@@ -1,6 +1,6 @@
 /**
  * HTTPError class
- * @description This class is used to represent an HTTP error.
+ * This class is used to represent an HTTP error.
  *
  * @property {number} status - The HTTP status code
  * @property {string} statusText - The HTTP status text
