@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "description": "A TypeScript-based fetcher library",
   "keywords": [
-    "typescript",
     "fetch",
-    "library"
+    "url",
+    "query"
   ],
   "author": "shrimpcoder <shrimpcoder97@gmail.com> (https://github.com/shrimpcoder)",
   "license": "MIT",
@@ -15,6 +15,7 @@
     "type": "git",
     "url": "https://github.com/shrimpcoder/ts-fetcher"
   },
+  "homepage": "https://shrimpcoder.github.io/ts-fetcher/",
   "files": [
     "dist"
   ],
