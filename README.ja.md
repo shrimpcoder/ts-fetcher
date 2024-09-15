@@ -8,6 +8,8 @@
 - **POST リクエスト**: テキスト、JSON、Blob、FormData、ArrayBuffer データを URL に送信します。
 - **エラーハンドリング**: HTTP エラーには`HTTPError`、スキーマ検証エラーには`ZodError`をスローします。
 - **レスポンス解析**: コンテンツタイプに基づいてレスポンスを自動的に解析します。
+- **URL ビルダー**: URL をビルドするためのオブジェクト指向なインターフェースを提供します。
+- **クエリビルダー**: クエリパラメータをビルドするためのオブジェクト指向なインターフェースを提供します。
 
 ## インストール
 
@@ -15,47 +17,33 @@
 npm install ts-fetcher
 ```
 
-## 使用方法
+## Zod との統合
 
-### GET リクエスト
+`Fetcher` は Zod との統合をサポートしています。Zod スキーマを使用してレスポンスを検証することができます。
 
-```typescript
-import { Fetcher } from 'ts-fetcher';
-import { URLBuilder } from 'ts-fetcher';
-import { z } from 'zod';
-
-const urlBuilder = new URLBuilder({ baseUrl: 'https://api.example.com' });
-const schema = z.object({ name: z.string() });
-
-const data = await Fetcher.get(urlBuilder, schema);
-console.log(data);
-```
-
-### POST JSON リクエスト
-
-```typescript
-import { Fetcher } from 'ts-fetcher';
-import { URLBuilder } from 'ts-fetcher';
-import { z } from 'zod';
-
-const urlBuilder = new URLBuilder({ baseUrl: 'https://api.example.com' });
-const schema = z.object({ name: z.string() });
-const body = { name: 'example' };
-
-const data = await Fetcher.postJson(urlBuilder, body, schema, 'application/json');
-console.log(data);
-```
-
-## テスト
-
-このプロジェクトには、すべての機能に対する包括的なテストが含まれています。以下のコマンドでテストを実行できます。
+> [!Note]
+> 必ず Zod スキーマを使用しなければならないわけではありません。  
+> Zod スキーマを指定しない場合、レスポンスは `unknown` として返されます。
 
 ```bash
-npm test
+npm install zod
 ```
 
-> [!Warning]
-> テストを実行する前に、すべての依存関係がインストールされていることを確認してください。
+```typescript
+import { Fetcher } from 'ts-fetcher';
+import { URLBuilder } from 'ts-fetcher';
+import { z } from 'zod';
+
+const urlBuilder = new URLBuilder({ baseUrl: 'https://api.example.com' });
+const schema = z.object({ name: z.string() });
+
+await Fetcher.get(urlBuilder, schema); // {name: string}
+await Fetcher.get(urlBuilder); // unknown
+```
+
+## 使用方法
+
+具体的な使用方法は[こちら](https://shrimpcoder.github.io/ts-fetcher/)を参照してください。
 
 ## ライセンス
 
